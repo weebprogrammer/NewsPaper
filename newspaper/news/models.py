@@ -1,4 +1,3 @@
-from os import R_OK
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import DateTimeField
@@ -9,6 +8,9 @@ from django.db.models import Sum
 class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
     ratingAuthor = models.SmallIntegerField(default=0)
+
+    def __str__(self) -> str:
+        return f'{self.authorUser}'
 
     def update_rating(self):
         postRat = self.post_set.all().aggregate(postRating=Sum('rating'))
@@ -41,6 +43,9 @@ class Post(models.Model):
     title = models.CharField(max_length=128)
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.title}: {self.text}'
 
     def like(self):
         self.rating += 1
