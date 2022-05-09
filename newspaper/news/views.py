@@ -8,3 +8,4 @@ class PostsList(ListView):
     context_object_name = 'posts'
 
 
+
